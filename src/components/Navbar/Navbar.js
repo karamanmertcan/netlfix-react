@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Logo from '../../images/logo.svg';
 
 const Navbar = () => {
@@ -9,7 +10,7 @@ const Navbar = () => {
       </div>
       <div className="flex justify-center bg-red-600 w-24 h-14 mr-4 rounded-md z-10">
         <button className="text-2xl text-white focus:outline-none">
-          Sign In
+          <Link to="/login">Sign In</Link>
         </button>
       </div>
     </nav>
