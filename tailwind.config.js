@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       backgroundImage: (theme) => ({
         'netflix-bg': "url('./images/background.jpg')",
+        browsebg: "url('./images/browsebg.jpg')",
       }),
 
       screens: {
