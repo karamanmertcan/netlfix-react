@@ -6,6 +6,7 @@ import SignUp from './pages/SignUp';
 import Browse from './pages/Browse';
 import MovieState from './context/MovieState';
 import { AuthProvider } from './context/AuthContext';
+import PrivateRoute from './components/PrivateRoute';
 
 const App = () => {
   return (
@@ -14,18 +15,16 @@ const App = () => {
         <Router>
           <Fragment>
             <Switch>
-              <Route exact path="/">
+              <Route exact path='/'>
                 <Home />
               </Route>
-              <Route exact path="/login">
+              <Route exact path='/login'>
                 <Login />
               </Route>
-              <Route exact path="/signup">
+              <Route exact path='/signup'>
                 <SignUp />
               </Route>
-              <Route exact path="/browse">
-                <Browse />
-              </Route>
+              <PrivateRoute exact path='/browse' component={Browse} />
             </Switch>
           </Fragment>
         </Router>
