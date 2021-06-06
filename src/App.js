@@ -12,7 +12,7 @@ const App = () => {
   return (
     <AuthProvider>
       <MovieState>
-        <Router>
+        <Router basename='index.html'>
           <Fragment>
             <Switch>
               <Route path='/' component={Home} />
