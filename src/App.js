@@ -15,9 +15,7 @@ const App = () => {
         <Router>
           <Fragment>
             <Switch>
-              <Route exact path='/'>
-                <Home />
-              </Route>
+              <Route path='/' component={Home} />
               <Route exact path='/login'>
                 <Login />
               </Route>
