@@ -9,6 +9,7 @@ import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
 
 const App = () => {
+  //changes
   return (
     <AuthProvider>
       <MovieState>
