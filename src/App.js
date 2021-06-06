@@ -15,7 +15,7 @@ const App = () => {
         <Router>
           <Fragment>
             <Switch>
-              <Route exact path='/'>
+              <Route exact basename='/React'>
                 <Home />
               </Route>
               <Route exact path='/login'>

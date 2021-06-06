@@ -2,6 +2,7 @@
   "name": "netflix",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://netlfix-react.vercel.app/React",
   "dependencies": {
     "@craco/craco": "^6.1.2",
     "@headlessui/react": "^1.2.0",
