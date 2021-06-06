@@ -11,30 +11,30 @@ const SignUp = () => {
   const { signup } = useAuth();
   const history = useHistory();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    console.log('hello', emailRef.current.value);
 
     try {
       setError('');
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
       history.push('/browse');
-    } catch (error) {
+    } catch (err) {
       setError('Failed to create an account');
+      console.log(error);
     }
     setLoading(false);
   };
 
   return (
-    <div className="  w-full h-screen bg-center opacity-80">
-      <div className="flex w-full h-28  px-10 py-10">
-        <img src={Logo} alt="" className=" h-full" />
+    <div className='  w-full h-screen bg-center opacity-80'>
+      <div className='flex w-full h-28  px-10 py-10'>
+        <img src={Logo} alt='' className=' h-full' />
       </div>
 
-      <div className="flex flex-col  mx-auto my-auto  sm:w-full  lg:w-1/4 sm:flex-1 h-4/6 sm:p-12 p-1">
-        <span className="text-black font-bold  text-5xl">Sign Up</span>
-        <span className="text-black   text-xl mt-4">
+      <div className='flex flex-col  mx-auto my-auto  sm:w-full  lg:w-1/4 sm:flex-1 h-4/6 sm:p-12 p-1'>
+        <span className='text-black font-bold  text-5xl'>Sign Up</span>
+        <span className='text-black   text-xl mt-4'>
           Create an account with Email and Password. This is a Netflix Clone
           Application and free of charge.
         </span>
@@ -42,40 +42,40 @@ const SignUp = () => {
         <form onSubmit={handleSubmit}>
           <div>
             <input
-              type="email"
-              id="email"
+              type='email'
+              id='email'
               ref={emailRef}
               required
-              placeholder="Email Address"
-              className="w-full mt-10 h-16 rounded text-2xl bg-gray-300"
+              placeholder='Email Address'
+              className='w-full mt-10 h-16 rounded text-2xl bg-gray-300'
             />
           </div>
           <div>
             <input
-              type="password"
-              id="password"
+              type='password'
+              id='password'
               ref={passwordRef}
-              placeholder="Password"
+              placeholder='Password'
               required
-              className="w-full mt-10 h-16 rounded text-2xl bg-gray-300"
+              className='w-full mt-10 h-16 rounded text-2xl bg-gray-300'
             />
           </div>
 
           <div>
             <button
               disabled={loading}
-              type="submit"
-              className="text-2xl bg-red-800 sm:h-16 sm:w-full mt-10 text-white focus:outline-none"
+              type='submit'
+              className='text-2xl bg-red-800 sm:h-16 sm:w-full mt-10 text-white focus:outline-none'
             >
               Sign Up
             </button>
           </div>
 
-          <div className="flex justify-between items-center  mt-10">
+          <div className='flex justify-between items-center  mt-10'>
             <div>
-              <span className="text-xl">Already Have an Account ?</span>
+              <span className='text-xl'>Already Have an Account ?</span>
             </div>
-            <Link to="/login" className="text-black text-2xl">
+            <Link to='/login' className='text-black text-2xl'>
               Sign In
             </Link>
           </div>

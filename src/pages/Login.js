@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Logo from '../images/logo.svg';
 import { useAuth } from '../context/AuthContext';
@@ -8,22 +8,20 @@ const Login = () => {
   const passwordRef = useRef();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [success, setSucces] = useState(false);
+
   const { login } = useAuth();
   const history = useHistory();
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log('hello', emailRef.current.value);
 
     try {
       setError(false);
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
-      setSucces(true);
       history.push('/browse');
     } catch (error) {
-      setSucces(false);
+      setError(true);
     }
     setLoading(false);
   };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Bell, Gift, Search, ChevronDown } from '../../icons/Icons';
 import Logo from '../../images/logo.svg';
 const BrowseNav = ({ modal, setModal, handleLogout, handleSubmit }) => {

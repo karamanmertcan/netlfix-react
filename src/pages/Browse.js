@@ -10,6 +10,7 @@ import ActionMovie from '../components/MovieRow/ActionMovie';
 import ComedyMovie from '../components/MovieRow/ComedyMovie';
 import DocsMovie from '../components/MovieRow/DocsMovie';
 import Footer from '../components/Footer/Footer';
+import Youtube from 'react-youtube';
 
 const Browse = () => {
   const movieContext = useContext(MovieContext);
@@ -28,6 +29,8 @@ const Browse = () => {
   const [slideNumber, setSlideNumber] = useState(9);
   const [firstSlideNumber, setFirstSlideNumber] = useState(0);
   const [modal, setModal] = useState(false);
+  const [trailerUrl, setTrailerUrl] = useState('');
+  const [youtubeOpen, setYoutubeOpen] = useState(false);
   const history = useHistory();
 
   const IMG_PATH = 'https://image.tmdb.org/t/p/w1280';
@@ -37,7 +40,15 @@ const Browse = () => {
     getActionMovies();
     getComedyMovies();
     getDocs();
-  }, []);
+  }, [movies]);
+
+  const opts = {
+    height: '390',
+    width: '100%',
+    playerVars: {
+      autoplay: 1,
+    },
+  };
 
   const nextSlide = e => {
     e.preventDefault();
@@ -57,22 +68,35 @@ const Browse = () => {
     setModal(true);
   };
 
+  const TRAILER_URL = `https://api.themoviedb.org/3`;
+
+  const handleClick = async id => {
+    if (trailerUrl) {
+      setTrailerUrl('');
+    } else {
+      setYoutubeOpen(true);
+      let res = await fetch(
+        TRAILER_URL +
+          `/movie/${id}/videos?api_key=b4d9150daa32ba3c4f9356f39daaa7bf`,
+      );
+      let data = await res.json();
+
+      setTrailerUrl(data.results[0].key);
+      setYoutubeOpen(true);
+    }
+  };
+
   const handleLogout = async e => {
     e.preventDefault();
 
     try {
       await logout();
-      console.log('logged out');
 
       history.push('/login');
     } catch (error) {
       console.log(error.message);
     }
   };
-
-  console.log(movies);
-  console.log(actionMovies);
-  console.log(docs);
 
   if (movies.length < 1) {
     return <h1>Loading...</h1>;
@@ -105,20 +129,24 @@ const Browse = () => {
         <div className='flex  mx-auto h-72 w-full transition duration-500 ease-in-out'>
           <button
             onClick={e => prevSlide(e)}
-            className='flex flex-start items-center text-white w-48 all items-center focus:outline-none text-white bg-gray-800 transform scale-100 hover:scale-110 transition duration-500 ease-in-out'
+            className='flex flex-start  w-48 all items-center focus:outline-none text-white bg-gray-800 transform scale-100 hover:scale-110 transition duration-500 ease-in-out'
           >
             <ChevronLeft />
           </button>
           {movies.slice(firstSlideNumber, slideNumber).map(movie => {
-            const { poster_path, backdrop_path } = movie;
+            const { poster_path, backdrop_path, id } = movie;
             return (
               <MovieItem
+                handleClick={handleClick}
+                id={id}
                 posterPath={poster_path}
                 backdropPath={backdrop_path}
                 imgPath={IMG_PATH}
+                key={movie.id}
               />
             );
           })}
+
           <button
             onClick={e => nextSlide(e)}
             className='flex flex-end w-48 all items-center focus:outline-none text-white bg-gray-800 transform scale-100 hover:scale-110 transition duration-500 ease-in-out'
@@ -126,11 +154,31 @@ const Browse = () => {
             <ChevronRight />
           </button>
         </div>
+        {trailerUrl && <Youtube videoId={trailerUrl} opts={opts} />}
+        <ActionMovie
+          handleClick={handleClick}
+          opts={opts}
+          trailerUrl={trailerUrl}
+          actionMovies={actionMovies}
+          imgPath={IMG_PATH}
+        />
 
-        <ActionMovie actionMovies={actionMovies} imgPath={IMG_PATH} />
-        <ComedyMovie comedyMovies={comedyMovies} imgPath={IMG_PATH} />
-        <DocsMovie docs={docs} imgPath={IMG_PATH} />
+        <ComedyMovie
+          handleClick={handleClick}
+          opts={opts}
+          trailerUrl={trailerUrl}
+          comedyMovies={comedyMovies}
+          imgPath={IMG_PATH}
+        />
+        <DocsMovie
+          handleClick={handleClick}
+          opts={opts}
+          trailerUrl={trailerUrl}
+          docs={docs}
+          imgPath={IMG_PATH}
+        />
       </div>
+
       <Footer />
     </div>
   );

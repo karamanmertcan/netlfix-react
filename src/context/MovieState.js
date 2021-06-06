@@ -1,10 +1,10 @@
-import React, { Children, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import MovieContext from './movieContext';
 import movieReducer from './movieReducer';
-import axios from 'axios';
+
 import { GET_MOVIES, GET_ACTION, GET_COMEDY, GET_DOCS } from './types';
 
-const MovieState = (props) => {
+const MovieState = props => {
   const initialState = {
     movies: [],
     actionMovies: [],
